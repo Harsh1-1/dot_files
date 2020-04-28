@@ -2,25 +2,25 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/harsh.ku/.oh-my-zsh
+  export ZSH="/home/harsh/.oh-my-zsh"
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="trapd00r"
 
-# Set list of themes to load
-# Setting this variable when ZSH_THEME=random
-# cause zsh load theme from this variable instead of
-# looking in ~/.oh-my-zsh/themes/
-# An empty array have no effect
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
@@ -48,26 +48,23 @@ ZSH_THEME="robbyrussell"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git osx
-  brew
-  python
-  golang
-  pip
-  nmap
-  tmux
+  git,
   docker
-  iterm2
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -100,16 +97,48 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias python=python3
-export WORKON_HOME=~/Envs
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
-export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+
+### Bashhub.com Installation
+if [ -f ~/.bashhub/bashhub.zsh ]; then
+    source ~/.bashhub/bashhub.zsh
+fi
+
+export WORKON_HOME=~/.virtualenvs
+VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3' # This needs to be placed before the virtualenvwrapper command
 source /usr/local/bin/virtualenvwrapper.sh
+alias ipa='ip r l | grep "scope link" | grep 172.16 | cut -f9 -d " "'
+#Adding FlameGraph to path variable
+export PATH="$PATH:/home/harsh/mystuff/toolsiuse/FlameGraph:/home/harsh/mystuff/myutls"
+alias 'ssh_remote'='ssh -R 52698:localhost:52698 '
+export PATH="$PATH:/home/harsh/DM/webpush/terraform_nx/ec2s"
 
-# My Alias shop
-alias opena="open -a"
-alias myip='ip r l | grep "172.*/32 dev en7" | grep -v ".1/32" | cut -f1 -d "/"'
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/harsh/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/harsh/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/harsh/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/harsh/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 
-#for Go Programming
-export GOPATH=$HOME/go
-export GOROOT="/usr/local/go"
+# >>for webassembly setup>>
+export PATH="$PATH:/home/harsh/learning/lwebassembly/emsdk:/home/harsh/learning/lwebassembly/emsdk/fastcomp/emscripten:/home/harsh/learning/lwebassembly/emsdk/node/12.9.1_64bit/bin"
+# << for webassembly setup end <<
+
+# For Go Lang
+export PATH="$PATH:/usr/local/go/bin"
+export JAVA_HOME=" /usr/lib/jvm/java-11-openjdk-amd64/bin/"
+
+alias gitty='git add .; git commit -m "fix from gitty"; git push'
+
+#Trello Automation
+alias serving_intr='python /home/harsh/DM/extras/add_task.py "Serving Tasks" "SRE Interruption"'
+alias serving_task='python /home/harsh/DM/extras/add_task.py "Serving Tasks" "WIP - SRE"'
+alias push_intr='python /home/harsh/DM/extras/add_task.py "Web Push Notification" "SRE Interruption"'
+alias push_task='python /home/harsh/DM/extras/add_task.py "Web Push Notification" "WIP - SRE"'
